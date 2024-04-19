@@ -1,0 +1,211 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include <ctype.h>
+
+void limparBufferEntrada() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {} 
+}
+
+int main (){
+  int opcao;
+  char escolha;
+  
+  while (1){
+	  printf ("---------- JOGOS ----------\n");
+	  printf(" Ola, Tudo bem!? Qual jogo voce deseja escolher: \n\n");
+	  printf ("1. Adivinhe o Numero\n");
+	  printf ("2. Jankenpon\n");
+	  printf ("3. Jogo da Forca\n");
+	  printf ("4. Sair\n\n");
+	  printf ("Digite sua opcao de jogo:\n");
+	  scanf ("%d", &opcao);
+      limparBufferEntrada();
+      
+	  switch (opcao)
+		{
+		case 1:
+		  {
+			int numeroAleatorio, tentativa, tentativasRestantes = 5;
+			srand (time (NULL));
+			numeroAleatorio = rand () % 100 + 1;
+			printf ("Bem-vindo ao jogo de adivinhacao!\n");
+
+			while (tentativasRestantes > 0)
+			  {
+				printf
+				  ("Tente adivinhar o numero secreto entre 1 e 100.\n\n");
+				printf ("Digite seu palpite: ");
+				scanf ("%d", &tentativa);
+
+				if (tentativa > numeroAleatorio)
+				  {
+					printf ("Tente um numero menor.\n");
+				  }
+				else if (tentativa < numeroAleatorio)
+				  {
+					printf ("Tente um numero maior.\n");
+				  }
+				else
+				  {
+					printf ("Parabens! Voce adivinhou o numero secreto %d!\n",	numeroAleatorio);
+					printf("Gostaria de jogar novamente? (S/N): ");
+					scanf(" %c", &escolha);
+					break;
+				  }
+				tentativasRestantes--;
+				printf ("Voce tem %d tentativas restantes.\n",
+						tentativasRestantes);
+			  }
+
+			if (tentativasRestantes == 0)
+			  {
+				printf
+				  ("Suas tentativas acabaram. O numero secreto era %d.\n\n",
+				   numeroAleatorio);
+			  }
+			break;
+		  
+		case 2:
+		  {
+			int jogador, computador;
+			printf ("Seja Muito Bem-vindo ao jogo Jankenpon!\n\n");
+			printf ("Escolha sua jogada:\n");
+			printf ("1. Pedra\n");
+			printf ("2. Papel\n");
+			printf ("3. Tesoura\n");
+			printf ("Qual sera a sua nova escolha: ");
+			scanf ("%d", &jogador);
+
+			srand (time (NULL));
+			computador = rand () % 3 + 1;
+
+			if (jogador < 1 || jogador > 3)
+			  {
+				printf ("Opcao invalida. Tente novamente.\n");
+			  }
+			else
+			  {
+				printf ("O computador escolheu: ");
+				switch (computador)
+				  {
+				  case 1:
+					printf ("Pedra\n");
+					break;
+				  case 2:
+					printf ("Papel\n");
+					break;
+				  case 3:
+					printf ("Tesoura\n");
+					break;
+				  }
+
+				printf ("Voce escolheu: ");
+				switch (jogador)
+				  {
+				  case 1:
+					printf ("Pedra\n");
+					break;
+				  case 2:
+					printf ("Papel\n");
+					break;
+				  case 3:
+					printf ("Tesoura\n");
+					break;
+				  }
+
+				if (jogador == computador)
+				  {
+					printf ("Empate!\n");
+				  }
+				else if ((jogador == 1 && computador == 3)
+						 || (jogador == 2 && computador == 1) || (jogador == 3 && computador == 2))
+                     {
+                    printf ("Voce ganhou!\n");
+                      }
+				else
+				  {
+					printf ("Voce perdeu!\n");
+				}
+			}
+			break;
+		
+		case 3:
+		  char palavraSecreta[100];
+		  char palpite[100];
+		  int tentativas = 6;
+		  int acertos = 0;
+		  
+		  printf ("Bem-vindo ao Jogo da Forca!\n\n");
+		  printf ("Digite a palavra secreta: ");
+		  scanf ("%s", palavraSecreta);
+		  
+		  system ("clear");
+		  
+		  while (tentativas > 0 && acertos < strlen (palavraSecreta))
+			{
+			  printf ("Palavra secreta: ");
+			  for (int i = 0; i < strlen (palavraSecreta); i++)
+				{
+				  if (palavraSecreta[i] == palpite[i])
+					{
+					  printf ("%c ", palpite[i]);
+					}
+				  else
+					{
+					  printf ("_ ");
+					}
+				}
+			  printf ("\nTentativas restantes: %d\n", tentativas);
+
+			  printf ("Digite uma letra: ");
+			  char letra;
+			  scanf (" %c", &letra);
+
+			  int acertou = 0;
+			  for (int i = 0; i < strlen (palavraSecreta); i++)
+				{
+				  if (palavraSecreta[i] == letra)
+					{
+					  palpite[i] = letra;
+					  acertou = 1;
+					  acertos++;
+					}
+				}
+
+			  if (!acertou)
+				{
+				  tentativas--;
+				}
+
+			  system ("clear");
+			}
+          if (acertos == strlen (palavraSecreta))
+			{
+			  printf ("Parabens! Voce acertou a palavra: %s\n",
+					  palavraSecreta);
+			}
+           else
+			{
+			  printf ("Suas tentativas acabaram. A palavra secreta era: %s\n",
+					  palavraSecreta);
+			}
+			break;
+			
+		case 4:
+           printf ("Encerrando o Jogo. Obrigado por Jogar, Ate Breve!!\n");
+           exit (0);
+          default:
+           printf ("Opcao invalida. Por Favor, Tente novamente.\n\n");
+           printf("Obrigado por jogar! Ate logo!\n");
+            break; 
+            
+         
+		}
+	}
+  return 0;
+	} 
+		}	
+}
