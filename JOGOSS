@@ -4,11 +4,6 @@
 #include <string.h>
 #include <ctype.h>
 
-void limparBufferEntrada() {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) {} 
-}
-
 int main (){
   int opcao;
   char escolha;
@@ -22,10 +17,8 @@ int main (){
 	  printf ("4. Sair\n\n");
 	  printf ("Digite sua opcao de jogo:\n");
 	  scanf ("%d", &opcao);
-      limparBufferEntrada();
       
-	  switch (opcao)
-		{
+	  switch (opcao){
 		case 1:
 		  {
 			int numeroAleatorio, tentativa, tentativasRestantes = 5;
